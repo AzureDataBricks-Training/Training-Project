@@ -1,0 +1,50 @@
+{
+	"name": "Dst_SQL_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Dst_SQL_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ORDER_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "O_TIMSTMP",
+				"type": "varchar"
+			},
+			{
+				"name": "D_TIMSTMP",
+				"type": "varchar"
+			},
+			{
+				"name": "PRODUCT_NM",
+				"type": "varchar"
+			},
+			{
+				"name": "PRICE",
+				"type": "varchar"
+			},
+			{
+				"name": "STATUS",
+				"type": "varchar"
+			},
+			{
+				"name": "CUST_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "CUST_EMAIL_ID",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "orders"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

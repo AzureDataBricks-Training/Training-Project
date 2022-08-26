@@ -1,0 +1,75 @@
+{
+	"name": "ref_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ref_ls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ORDER_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "O_TIMSTMP",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "D_TIMSTMP",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "PRODUCT_NM",
+				"type": "varchar"
+			},
+			{
+				"name": "PRICE",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "STATUS",
+				"type": "varchar"
+			},
+			{
+				"name": "CUST_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "CUST_EMAIL_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "INSERT_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "UPDATE_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CREATE_DT",
+				"type": "date"
+			},
+			{
+				"name": "UPDATE_DT",
+				"type": "date"
+			},
+			{
+				"name": "CANCEL_IND",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "orders_target"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,111 @@
+{
+	"name": "Silver",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Src_Sql_orders",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Rej_DS",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "Valid",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "assert1"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "window1"
+				},
+				{
+					"name": "split1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          ORDER_ID as string,",
+				"          O_TIMSTMP as string,",
+				"          D_TIMSTMP as string,",
+				"          PRODUCT_NM as string,",
+				"          PRICE as string,",
+				"          STATUS as string,",
+				"          CUST_ID as string,",
+				"          CUST_EMAIL_ID as string",
+				"     ),",
+				"     allowSchemaDrift: false,",
+				"     validateSchema: true,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table',",
+				"     partitionBy('hash', 1)) ~> source1",
+				"source1 assert(expectTrue(!isNull(ORDER_ID), false, 'order_id'),",
+				"     expectTrue(!isNull(O_TIMSTMP), false, 'order_tm'),",
+				"     expectTrue(!isNull(toDate(O_TIMSTMP, 'yyyy-MM-dd HH:mm:ss')), false, 'valid_tm_stm')) ~> assert1",
+				"assert1 derive(Null_Order_Id = hasError('order_id'),",
+				"          Null_Order_Tm = hasError('order_tm'),",
+				"          invalid_Order_tm = hasError('valid_tm_stm')) ~> derivedColumn1",
+				"derivedColumn1 window(over(ORDER_ID,",
+				"          O_TIMSTMP),",
+				"     asc(ORDER_ID, true),",
+				"     asc(O_TIMSTMP, true),",
+				"     row_num = rowNumber()) ~> window1",
+				"window1 split(Null_Order_Id==false() && Null_Order_Tm==false() && invalid_Order_tm==false() && row_num==1,",
+				"     disjoint: false) ~> split1@(valid, reject)",
+				"split1@valid sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['Valid_Orders.csv'],",
+				"     truncate: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          ORDER_ID,",
+				"          O_TIMSTMP,",
+				"          D_TIMSTMP,",
+				"          PRODUCT_NM,",
+				"          PRICE,",
+				"          STATUS,",
+				"          CUST_ID,",
+				"          CUST_EMAIL_ID",
+				"     ),",
+				"     partitionBy('hash', 1)) ~> sink1",
+				"split1@reject sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['Reject_Orders.csv'],",
+				"     truncate: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          ORDER_ID,",
+				"          O_TIMSTMP,",
+				"          D_TIMSTMP,",
+				"          PRODUCT_NM,",
+				"          PRICE,",
+				"          STATUS,",
+				"          CUST_ID,",
+				"          CUST_EMAIL_ID",
+				"     ),",
+				"     partitionBy('hash', 1)) ~> sink2"
+			]
+		}
+	}
+}

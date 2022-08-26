@@ -1,0 +1,54 @@
+{
+	"name": "SrcExcel_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Src_Excel_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "landing"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "OrderId",
+				"type": "String"
+			},
+			{
+				"name": "Order_TimStmp",
+				"type": "String"
+			},
+			{
+				"name": "Delivery_TimStmp",
+				"type": "String"
+			},
+			{
+				"name": "Product_Name",
+				"type": "String"
+			},
+			{
+				"name": "Price",
+				"type": "String"
+			},
+			{
+				"name": "Status",
+				"type": "String"
+			},
+			{
+				"name": "Cust_Id",
+				"type": "String"
+			},
+			{
+				"name": "Cust_EmaiId",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,59 @@
+{
+	"name": "Gold",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Gold_Agg",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "aggregate1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          ORDER_ID as string,",
+				"          O_TIMSTMP as timestamp,",
+				"          D_TIMSTMP as timestamp,",
+				"          PRODUCT_NM as string,",
+				"          PRICE as double,",
+				"          STATUS as string,",
+				"          CUST_ID as string,",
+				"          CUST_EMAIL_ID as string,",
+				"          CREATE_DT as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> source1",
+				"source1 aggregate(groupBy(CREATE_DT),",
+				"     Total_Price = sum(PRICE),",
+				"          Max_Price = max(PRICE),",
+				"          Min_Price = min(PRICE),",
+				"          Avg_Price = avg(PRICE)) ~> aggregate1",
+				"aggregate1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['Aggregations.csv'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
+			]
+		}
+	}
+}

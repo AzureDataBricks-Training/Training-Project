@@ -1,0 +1,57 @@
+{
+	"name": "tgt_orders",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "tgt_order_ls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ORDER_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "O_TIMSTMP",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "D_TIMSTMP",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "PRODUCT_NM",
+				"type": "varchar"
+			},
+			{
+				"name": "PRICE",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "STATUS",
+				"type": "varchar"
+			},
+			{
+				"name": "CUST_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "CUST_EMAIL_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "CREATE_DT",
+				"type": "date"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "orders_target"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
