@@ -1,0 +1,9 @@
+{
+	"name": "DataFactory-Sreeni",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "8624a4a9-2b42-4a77-87b0-be3994b03d46",
+		"tenantId": "aa518ac4-d3c6-45cd-9d26-f3a607d8da74"
+	}
+}
