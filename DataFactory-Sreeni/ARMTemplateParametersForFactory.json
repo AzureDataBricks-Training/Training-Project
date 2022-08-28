@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "DataFactory-Sreeni"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"AzureDatabricksLinkService_accessToken": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"Dst_SQL_LS_connectionString": {
+			"value": ""
+		},
+		"Get_MD_LS_connectionString": {
+			"value": ""
+		},
+		"Rej_Ls_connectionString": {
+			"value": ""
+		},
+		"Src_Excel_LS_connectionString": {
+			"value": ""
+		},
+		"Valid_Ls_connectionString": {
+			"value": ""
+		},
+		"agg_Ls_connectionString": {
+			"value": ""
+		},
+		"ref_ls_connectionString": {
+			"value": ""
+		},
+		"tgt_order_ls_connectionString": {
+			"value": ""
+		},
+		"valid_Src_Ls_connectionString": {
+			"value": ""
+		},
+		"AzureDatabricksLinkService_properties_typeProperties_existingClusterId": {
+			"value": "0827-060820-79o58a6p"
+		}
+	}
+}

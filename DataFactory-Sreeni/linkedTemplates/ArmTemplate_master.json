@@ -1,0 +1,173 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "DataFactory-Sreeni"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"AzureDatabricksLinkService_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricksLinkService'"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
+		"Dst_SQL_LS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Dst_SQL_LS'"
+		},
+		"Get_MD_LS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Get_MD_LS'"
+		},
+		"Rej_Ls_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Rej_Ls'"
+		},
+		"Src_Excel_LS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Src_Excel_LS'"
+		},
+		"Valid_Ls_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Valid_Ls'"
+		},
+		"agg_Ls_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'agg_Ls'"
+		},
+		"ref_ls_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ref_ls'"
+		},
+		"tgt_order_ls_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'tgt_order_ls'"
+		},
+		"valid_Src_Ls_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'valid_Src_Ls'"
+		},
+		"AzureDatabricksLinkService_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0827-060820-79o58a6p"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "DataFactory-Sreeni_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureBlobStorage1_connectionString": {
+						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
+					"AzureDatabricksLinkService_accessToken": {
+						"value": "[parameters('AzureDatabricksLinkService_accessToken')]"
+					},
+					"AzureSqlDatabase1_connectionString": {
+						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
+					},
+					"Dst_SQL_LS_connectionString": {
+						"value": "[parameters('Dst_SQL_LS_connectionString')]"
+					},
+					"Get_MD_LS_connectionString": {
+						"value": "[parameters('Get_MD_LS_connectionString')]"
+					},
+					"Rej_Ls_connectionString": {
+						"value": "[parameters('Rej_Ls_connectionString')]"
+					},
+					"Src_Excel_LS_connectionString": {
+						"value": "[parameters('Src_Excel_LS_connectionString')]"
+					},
+					"Valid_Ls_connectionString": {
+						"value": "[parameters('Valid_Ls_connectionString')]"
+					},
+					"agg_Ls_connectionString": {
+						"value": "[parameters('agg_Ls_connectionString')]"
+					},
+					"ref_ls_connectionString": {
+						"value": "[parameters('ref_ls_connectionString')]"
+					},
+					"tgt_order_ls_connectionString": {
+						"value": "[parameters('tgt_order_ls_connectionString')]"
+					},
+					"valid_Src_Ls_connectionString": {
+						"value": "[parameters('valid_Src_Ls_connectionString')]"
+					},
+					"AzureDatabricksLinkService_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('AzureDatabricksLinkService_properties_typeProperties_existingClusterId')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "DataFactory-Sreeni_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'DataFactory-Sreeni_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "DataFactory-Sreeni_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'DataFactory-Sreeni_ArmTemplate_1')]"
+			]
+		}
+	]
+}
